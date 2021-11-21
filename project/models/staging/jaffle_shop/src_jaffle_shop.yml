@@ -1,0 +1,23 @@
+version: 2
+
+sources:
+  - name: jaffle_shop
+    description: Tables generated from a billing sysytem
+    database: BOOTCAMP_DB
+    tables:
+      - name: customers
+        column:
+          - name: id
+            tests:
+              - unique
+              - not_null
+      - name: orders
+        loaded_at_field: _ETL_LOADED_AT
+        freshness: 
+          warn_after: {count: 12, period: hour}
+          error_after: {count: 36, period: hour}
+        column:
+          - name: id
+            tests:
+              - unique
+              - not_null
